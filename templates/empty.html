@@ -1,0 +1,46 @@
+<!doctype html>
+<body>
+{{ content | safe}}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://d3js.org/d3.v3.js"></script>
+<style>
+    .xcoor, .ycoor, .ghost {display:none}
+    div {width:450px, height:300px}
+</style>
+<p class='ghost' id='pid' value='{{pid}}'></p>
+<script>
+var f = d3.select('body').append('form')
+    .attr('action','/replot')
+    .attr('method','post')
+    .selectAll('foo')
+
+f.data({{xcoor}})
+    .enter()
+    .append("input")
+    .attr('class', 'xcoor')
+    .attr('name', function(d,i) { return 'x_' + i; })
+    .attr('value', function(d) { return d; })
+f.data({{ycoor}})
+    .enter()
+    .append("input")
+    .attr('class','ycoor')
+    .attr('name', function(d,i) { return 'y_' + i; })
+    .attr('value', function(d) { return d; })
+f.data([1])
+    .enter()
+    .append('input')
+    .attr('type','submit')
+    .attr('value','Replot')
+
+var x = d3.select('#pid').attr('value')
+f.data([1])
+    .enter()
+    .append('input')
+    .attr('class','ghost')
+    .attr('name','pid')
+    .attr('value',x)
+</script>
+<form action="/" method="GET">
+<input type="submit" value="Start Over">
+</form>
+</body>

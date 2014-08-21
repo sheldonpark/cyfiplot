@@ -1,0 +1,55 @@
+<!doctype html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script src="https://mpld3.github.io/js/mpld3.v0.2.js"></script>
+</head>
+<body>
+<h2>Replot</h2>
+
+{% for p in plot %}
+<div id="{{ p['id'] }}"></div>
+{% endfor %}
+<script type="text/javascript">
+{% for p in plot %}
+    mpld3.draw_figure("{{ p['id'] }}", {{ p['json']|safe }});
+{% endfor %}
+</script>
+
+<style>
+    .xcoor, .ycoor, .ghost {display:none}
+</style>
+<p class='ghost' id='pid' value='{{pid}}'></p>
+<script>
+var f = d3.select('body').append('form')
+    .attr('action','/replot')
+    .attr('method','post')
+    .selectAll('foo')
+
+f.data({{xcoor}})
+    .enter()
+    .append("input")
+    .attr('class', 'xcoor')
+    .attr('name', function(d,i) { return 'x_' + i; })
+    .attr('value', function(d) { return d; })
+f.data({{ycoor}})
+    .enter()
+    .append("input")
+    .attr('class','ycoor')
+    .attr('name', function(d,i) { return 'y_' + i; })
+    .attr('value', function(d) { return d; })
+f.data([1])
+    .enter()
+    .append('input')
+    .attr('type','submit')
+    .attr('value','Replot')
+
+var x = d3.select('#pid').attr('value')
+f.data([1])
+    .enter()
+    .append('input')
+    .attr('class','ghost')
+    .attr('name','pid')
+    .attr('value',x)
+</script>
+</body>

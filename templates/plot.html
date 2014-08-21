@@ -1,0 +1,17 @@
+<html>
+<head>
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="http://mpld3.github.io/js/mpld3.v0.1.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+{% for p in plot %}
+<div id="{{ p['id'] }}"></div>
+{% endfor %}
+<script type="text/javascript">
+{% for p in plot %}
+    mpld3.draw_figure("{{ p['id'] }}", {{ p['json']|safe }});
+{% endfor %}
+</script>
+</body>
+</html>

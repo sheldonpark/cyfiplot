@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<body>
+<form>
+<select><option value=1>1</option>
+</select>
+</form>
+<input type="checkbox" name="sex" value="male">Male</input>
+<input type="checkbox" name="sex" value="female">female</input>
+</body>
+</html>
+
+

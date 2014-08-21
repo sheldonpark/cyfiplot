@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script>
+d3.select("body").selectAll("input")
+.data([11, 22, 33, 44])
+.enter()
+.append('label')
+    .attr('for',function(d,i){ return 'a'+i; })
+    .text(function(d) { return d; })
+.append("input")
+    .attr("checked", true)
+    .attr("type", "checkbox")
+    .attr("name", function(d,i) { return 'a'+i; })
+    .text(function(d) { return d; })
+    .attr("onClick", "change(this)");
+</script>
+</body>
+</html>
+
+
