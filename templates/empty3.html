@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)http://127.0.0.1:5000/scatter2/56e32ee60dfd68147468ef82 -->
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Online Flow Cytometry Plotting Tool</title>
+  </head>
+<body>    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://d3js.org/d3.v3.js"></script>
+    <style>
+    .xcoor, .ycoor, .ghost {display:none}
+    div {width:450px, height:300px}
+    </style>
+ 
+<p class='ghost' id='pid' value='{{pid}}'></p>
+<p class='ghost' id='chan' value='{{channel}}'></p>
+<p class='ghost' id='fnames' value='{{fnames}}'></p>
+<p class='ghost' id='chkbox' value='{{chkbox}}'></p>
+      {{content|safe}}
+    <table>
+      <tbody>
+        <tr>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+        <tr>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <script>
+var f = d3.select('body').append('form')
+    .attr('action','/pre_histogram')
+    .attr('method','post')
+    .selectAll('foo')
+
+// gate x, y coordinates
+    f.data({{xcoor}})
+    .enter()
+    .append("input")
+    .attr('class', 'xcoor')
+    .attr('name', function(d,i) { return 'x_' + i; })
+    .attr('value', function(d) { return d; })
+f.data({{ycoor}})
+    .enter()
+    .append("input")
+    .attr('class','ycoor')
+    .attr('name', function(d,i) { return 'y_' + i; })
+    .attr('value', function(d) { return d; })
+f.data([1])
+    .enter()
+    .append('input')
+    .attr('type','submit')
+    .attr('value','Generate Histogram')
+
+// Pull down for channel
+var a = d3.select("#chan").attr("value");
+console.log(a)
+var b = a.split(" ");
+console.log(b)
+
+d3.select("form").append("select")
+    .attr("name","channel")
+    .attr("id","channel");
+    
+d3.select("select").selectAll("option")
+    .data(b).enter().append("option")
+    .attr("value", function (d,i) { return i; })
+    .text(function(d){ return d;});
+            
+    </script>
+    <script>
+var f = d3.select('body').append('form')
+    .attr('id','scatform')
+    .attr('action','/pre_scatter')
+    .attr('method','post')
+    .selectAll('foo')
+
+// gate x, y coordinates
+f.data({{xcoor}})
+    .enter()
+    .append("input")
+    .attr('class', 'xcoor')
+    .attr('name', function(d,i) { return 'x_' + i; })
+    .attr('value', function(d) { return d; })
+f.data({{ycoor}})
+    .enter()
+    .append("input")
+    .attr('class','ycoor')
+    .attr('name', function(d,i) { return 'y_' + i; })
+    .attr('value', function(d) { return d; })
+f.data([1])
+    .enter()
+    .append('input')
+    .attr('type','submit')
+    .attr('value','Generate Scatter Plot')
+
+// Pull down for channel
+var a = d3.select("#chan").attr("value");
+console.log(a)
+var b = a.split(" ");
+console.log(b)
+
+d3.select("#channel").selectAll("option")
+    .filter(function (d, i) { return i == 2; })
+    .attr("selected","selected")
+ 
+d3.select("#scatform").append("select")
+    .attr("name","scatchan1")
+    .attr("id","scatchan1");
+d3.select("#scatchan1").selectAll("option")
+    .data(b).enter().append("option")
+    .attr("value", function (d,i) { return i; })
+    .text(function(d){ return d;});
+d3.select("#scatchan1").selectAll("option")
+  .filter(function (d, i) { return i == 2; })
+    .attr("selected","selected")  
+  
+d3.select("#scatform").append("select")
+    .attr("name","scatchan2")
+    .attr("id","scatchan2");
+d3.select("#scatchan2").selectAll("option")
+    .data(b).enter().append("option")
+    .attr("value", function (d,i) { return i; })
+    .text(function(d){ return d;});
+d3.select("#scatchan2").selectAll("option")
+  .filter(function (d, i) { return i == 3; })
+    .attr("selected","selected")  
+    </script>
+    <form action="http://127.0.0.1:5000/pre_fvs_plot" method="POST"><input value="Back to Forward v. Side"
+
+        type="submit"> </form>
+    <form action="http://127.0.0.1:5000/" method="GET"> <input value="Back to CyFi Home"
+
+        type="submit"> </form>
+    
+  </body>
+</html>
