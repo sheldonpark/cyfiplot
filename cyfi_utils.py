@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
 """
 Created on Wed Aug 06 23:44:46 2014
-
-@author: Sheldon
+@author: Sheldon Park
 """
 import numpy as np
 from matplotlib import path
